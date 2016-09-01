@@ -82,7 +82,8 @@ GODINEm[33]=${GODINEm[31]},${GODINEm[32]}                #ENSO nonzero,   NAO ++
 
 #>>>> 2014 09 26 for VAR in pr          ; do
 #>>>> 2014 11 21 for VAR in zg500 zg300 ; do
-for VAR in pr                           ; do
+#>>>> 2016 08 30 for VAR in pr          ; do
+for VAR in prc                          ; do
 
 #-----------------------
 #-----------------------Ulazne datoteke
@@ -104,6 +105,9 @@ for VAR in pr                           ; do
     FILE[14]=DMI-HIRHAM5_CTL_ERA40_MM_25km-CRU_${VAR}.nc
     FILE[15]=CHMIALADIN_CY28_ERA40_MM_25km-CRU_1961-2000_${VAR}.nc
     if [ ${VAR} == pr    ]; then
+    NMODS=15 
+    fi
+    if [ ${VAR} == prc   ]; then
     NMODS=15 
     fi
     if [ ${VAR} == zg500 ]; then
@@ -141,6 +145,9 @@ for VAR in pr                           ; do
         SETmontxt[11]=01
         SETmontxt[12]=02
 
+
+cd /bonus_disk/MODELS/ENSEMBLES/DIR_ANALIZA_ENSO_NAO
+
 #-----------------
 #----------------- STEP 1: izracunati sezonski srednjak za svaku godinu i svaki model odvojeno
 #-----------------
@@ -157,14 +164,14 @@ for VAR in pr                           ; do
         rm running.nc
     done #MOD
 
-#    for SES in {1..12}    ; do
-#    if [ ${NMODS} == 15 ] ; then
-#        cdo ensavg ${VAR}_MOD_1_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_2_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_3_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_4_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_5_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_6_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_7_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_8_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_9_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_10_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_11_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_12_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_13_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_14_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_15_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
-#    fi
+    for SES in {1..12}    ; do
+    if [ ${NMODS} == 15 ] ; then
+        cdo ensavg ${VAR}_MOD_1_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_2_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_3_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_4_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_5_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_6_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_7_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_8_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_9_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_10_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_11_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_12_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_13_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_14_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_15_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
+    fi
 #    if [ ${NMODS} == 14 ] ; then
 #        cdo ensavg ${VAR}_MOD_1_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_2_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_3_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_4_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_5_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_6_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_7_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_8_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_9_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_10_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_11_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_12_SM_${SEAStxt[${SES}]}_SMS_2014.nc       ${VAR}_MOD_13_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_14_SM_${SEAStxt[${SES}]}_SMS_2014.nc ${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
 #    fi
-#    done #SES
+    done #SES
 
 
 #-----------------
@@ -173,12 +180,12 @@ for VAR in pr                           ; do
 
 for TIP in {1..36}                       ; do
     for SES in 1 2 3 4 5 6 7 8 9   11 12 ; do
-#        INPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
-#        OUTPUT1=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc              #Ovdje je visegodisnji srednjak po SVIM     godinama
-#        OUTPUT2=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc    #Ovdje je visegodisnji srednjak po ODBRANIM godinama
-#
-#        cdo timavg                               ${INPUT} ${OUTPUT1}
-#        cdo timavg -selyear,${GODINE[${TIP}]}    ${INPUT} ${OUTPUT2}
+        INPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
+        OUTPUT1=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc              #Ovdje je visegodisnji srednjak po SVIM     godinama
+        OUTPUT2=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc    #Ovdje je visegodisnji srednjak po ODBRANIM godinama
+
+        cdo timavg                               ${INPUT} ${OUTPUT1}
+        cdo timavg -selyear,${GODINE[${TIP}]}    ${INPUT} ${OUTPUT2}
 
 
         for MOD in $(seq 1 ${NMODS}) ; do
@@ -192,12 +199,12 @@ for TIP in {1..36}                       ; do
     done #od SES
 
     for SES in 10                        ; do
-#        INPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
-#        OUTPUT1=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc              #Ovdje je visegodisnji srednjak po SVIM      godinama
-#        OUTPUT2=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc    #Ovdje je visegodisnji srednjka po ODABRANIM godinama
-#
-#        cdo timavg                               ${INPUT} ${OUTPUT1}
-#        cdo timavg -selyear,${GODINEm[${TIP}]}   ${INPUT} ${OUTPUT2}
+        INPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
+        OUTPUT1=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc              #Ovdje je visegodisnji srednjak po SVIM      godinama
+        OUTPUT2=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc    #Ovdje je visegodisnji srednjka po ODABRANIM godinama
+
+        cdo timavg                               ${INPUT} ${OUTPUT1}
+        cdo timavg -selyear,${GODINEm[${TIP}]}   ${INPUT} ${OUTPUT2}
 
         for MOD in $(seq 1 ${NMODS}) ; do
         INPUT=${VAR}_MOD_${MOD}_SM_${SEAStxt[${SES}]}_SMS_2014.nc
@@ -218,10 +225,10 @@ done #od TIP
 for TIP in {1..36}                        ; do
    for SES in 1 2 3 4 5 6 7 8 9 10 11 12  ; do
 
-#	INPUT1=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc
-#	INPUT2=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
-#	OUTPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_TIP${TIP}_anomaly_SMS_2014.nc  #Ovdje je razlika visegodisnjih srednjaka po SVIM i ODABRANIM godinama
-#        cdo sub ${INPUT1} ${INPUT2} ${OUTPUT}
+	INPUT1=${VAR}_MOD_ENSAVG_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc
+	INPUT2=${VAR}_MOD_ENSAVG_TIMAVG_SM_${SEAStxt[${SES}]}_SMS_2014.nc
+	OUTPUT=${VAR}_MOD_ENSAVG_SM_${SEAStxt[${SES}]}_TIP${TIP}_anomaly_SMS_2014.nc  #Ovdje je razlika visegodisnjih srednjaka po SVIM i ODABRANIM godinama
+        cdo sub ${INPUT1} ${INPUT2} ${OUTPUT}
 
 	for MOD in $(seq 1 ${NMODS}) ; do
 	INPUT1=${VAR}_MOD_${MOD}_TIMAVG_TIP${TIP}_SM_${SEAStxt[${SES}]}_SMS_2014.nc
