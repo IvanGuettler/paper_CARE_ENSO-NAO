@@ -13,8 +13,6 @@ function addLines1
      VAR=${VAR}
      SESI=${SESI}
 if (VAR=1);  'set clevs    -5   -2   -1 -0.5 -0.2 0.2 0.5   1   2 5';    endif;
-if (VAR=2);  'set clevs -40  -30  -20  -10  -5     5  10  20  30  40';  endif;
-if (VAR=3);  'set clevs -40  -30  -20  -10  -5     5  10  20  30  40';  endif;
 return
 EOF
 cat > addLines2 << EOF
@@ -22,8 +20,6 @@ function addLines2
      VAR=${VAR}
      SESI=${SESI}
 if (VAR=1);  'set clevs -13 -11 -9 -7 -5 -2 -1 -0.5 -0.2 0.2 0.5 1 2 5 7 9 11 13';    endif;
-if (VAR=2);  'set clevs -200 -150 -100 -90 -80 -70 -60 -50 -40  -30  -20  -10  -5 5 10  20  30  40 50 60 70 80 90 100 150 200';  endif;
-if (VAR=3);  'set clevs -200 -150 -100 -90 -80 -70 -60 -50 -40  -30  -20  -10  -5 5 10  20  30  40 50 60 70 80 90 100 150 200';  endif;
 return
 EOF
 
@@ -55,11 +51,7 @@ SESI=${SESI}
 GGGG=${GGG}
 *Generalno
 varTXT.1=' R (mm/day)';
-VARtxt.1='pr'
-varTXT.2=' ZG500hPa (m)';
-VARtxt.2='zg'
-varTXT.3=' ZG300hPa (m)';
-VARtxt.3='zg'
+VARtxt.1='prc'
 VAR=${VAR}
 SESItxt.1='JFM'
 SESItxt.2='AMJ'
@@ -129,14 +121,10 @@ endif
 TIT=1
 while TIT<=6
 FILE=TIT+6*(GGGG-1)
-    if (VAR=1); 'sdfopen  /home/guettler/bonus_disk/MODELS/ENSEMBLES/DIR_ANALIZA_ENSO_NAO/2014_pr/FILES_RCM/pr_MOD_ENSAVG_SM_'SESItxt.SESI'_TIP'FILE'_anomaly_SMS_2014.nc';    endif
-    if (VAR=2); 'sdfopen ./2014_zg500/zg500_MOD_ENSAVG_SM_'SESItxt.SESI'_TIP'FILE'_anomaly_SMS_2014.nc'; endif
-    if (VAR=3); 'sdfopen ./2014_zg300/zg300_MOD_ENSAVG_SM_'SESItxt.SESI'_TIP'FILE'_anomaly_SMS_2014.nc'; endif
+    if (VAR=1); 'sdfopen  /home/guettler/bonus_disk/MODELS/ENSEMBLES/DIR_ANALIZA_ENSO_NAO/2016_prc/FILES_RCM/prc_MOD_ENSAVG_SM_'SESItxt.SESI'_TIP'FILE'_anomaly_SMS_2014.nc';    endif
     TIT=TIT+1
 endwhile
-    if (VAR=1); varic1='pr'; offset1=0; factor1=86400; endif
-    if (VAR=2); varic1='zg'; offset1=0; factor1=1    ; endif
-    if (VAR=3); varic1='zg'; offset1=0; factor1=1    ; endif
+    if (VAR=1); varic1='prc'; offset1=0; factor1=86400; endif
 
 
 *------------------------------------------------------------
@@ -161,12 +149,9 @@ while TIT<=6
 say '------------------------------------------------------------------------->'FILE
       'set dfile 'TIT
       'run page.gs 'PAGE.TIT' 23'
-*v1   'define toplot1=('varic1'.'TIT'(z=1,t=1))*'factor1'+'offset1
-*v2  2014-07-07
       'define toplot1=smth9('varic1'.'TIT'(z=1,t=1))*'factor1'+'offset1
       'set gxout shaded'
       'run addPlottingstuff'
-*     'run addNewcol 62';
       'run addNewcol 3b';
       'run addLines1';   
       'd toplot1'
@@ -177,13 +162,7 @@ say '------------------------------------------------------------------------->'
       if (VAR>1); 'set clab on'; endif
       'd toplot1'
 
-*if (VAR=1); 'draw title RCM pr (mm/day) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 0.2 0.5 1 2 5 7 9 11 13'; endif
-*if (VAR=1); 'draw title RCM pr (mm/day) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 0.2 0.5 1 2 5 7 9 11 13; smoothed'; endif
-if (VAR=1); 'draw title ENS pr (mm/day) 'SESItxt.SESI' 'TYPEtxt.TIT' composite'; endif
-*if (VAR=2); 'draw title RCM zg500hPa (m) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 5 10  20  30  40 50 60 70 80 90 100 150 200'; endif
-*if (VAR=2); 'draw title RCM zg500hPa (m) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 5 10  20  30  40 50 60 70 80 90 100 150 200; smoothed'; endif
-*if (VAR=3); 'draw title RCM zg300hPa (m) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 5 10  20  30  40 50 60 70 80 90 100 150 200'; endif
-*if (VAR=3); 'draw title RCM zg300hPa (m) 'SESItxt.SESI' 'TYPEtxt.TIT' composite \ clevs 5 10  20  30  40 50 60 70 80 90 100 150 200; smoothed'; endif
+if (VAR=1); 'draw title ENS prc (mm/day) 'SESItxt.SESI' 'TYPEtxt.TIT' composite'; endif
 TIT=TIT+1
 endwhile
 
@@ -208,13 +187,7 @@ SESItxt[1]='JFM'
 SESItxt[2]='AMJ'
 
 if [ ${VAR} == 1 ]; then
-FILE=RCM_GROUP${GGG}_${SESItxt[${SESI}]}_pr_composite_smth9
-fi
-if [ ${VAR} == 2 ]; then
-FILE=RCM_GROUP${GGG}_${SESItxt[${SESI}]}_zg500_composite_smth9
-fi
-if [ ${VAR} == 3 ]; then
-FILE=RCM_GROUP${GGG}_${SESItxt[${SESI}]}_zg300_composite_smth9
+FILE=RCM_GROUP${GGG}_${SESItxt[${SESI}]}_prc_composite_smth9
 fi
 
 
