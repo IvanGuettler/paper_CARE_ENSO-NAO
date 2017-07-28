@@ -103,7 +103,8 @@ say '------------------------------------------------------------------------->'
 *dodao sam x(-1) radi usporedivosti sa CRU i ERA40
       'd toplot1*(-1)'
 
-      if (VAR=1); 'draw title RCM EOF'EOFS' 'SESItxt.SESI' \ 0.1 0.4 0.8 1.2 1.6'; endif
+*      if (VAR=1); 'draw title RCM EOF'EOFS' 'SESItxt.SESI' \ 0.1 0.4 0.8 1.2 1.6'; endif
+       if (VAR=1); 'draw title ENS EOF'EOFS' 'SESItxt.SESI                        ; endif
 
 *------------------------------------------------------------
 * Print plot 
